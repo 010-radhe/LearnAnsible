@@ -1,0 +1,31 @@
+
+---
+- name: Deploy website to centos2
+  hosts: centos2
+  become: true       # temporarily become root
+  tasks:
+    - name: Ensure web root exists
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: Copy website files
+      copy:
+        src: /home/user1/LearnAnsible/files
+        dest: /var/www/html/
+        owner: root
+        group: apache
+        mode: '0644'
+
+    - name: Ensure Apache is installed
+      yum:
+        name: httpd
+        state: present
+
+    - name: Ensure Apache is running
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
