@@ -12,7 +12,7 @@
 
     - name: Copy website files
       copy:
-        src: /home/user1/LearnAnsible/files
+        src: ../files
         dest: /var/www/html/
         owner: root
         group: apache
